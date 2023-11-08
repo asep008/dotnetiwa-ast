@@ -18,3 +18,20 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: Bash@3
+  displayName: start scanning SAST
+  inputs:
+    filePath: 'scancentral'
+    arguments: '-url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log'
+
+- task: Bash@3
+  displayName: Get Progress scanning
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      jobtoken=$(grep "received token" sast-$(versionid)-`date +%d-%m-%Y`.log | awk '(print $6)'
+      echo $jobtoken
+      # get status token
+      scancentral -url $(url_scancentral) status -token $jobtoken
