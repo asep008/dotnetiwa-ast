@@ -22,7 +22,7 @@ steps:
 - task: Bash@3
   displayName: start scanning SAST
   inputs:
-    filePath: 'scancentral'
+    filePath: ' ~/.fortify/tools/sc-client/22.2.1/bin/scancentral'
     arguments: '-url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log'
 
 - task: Bash@3
