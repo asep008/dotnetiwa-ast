@@ -19,19 +19,30 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: Bash@3
-  displayName: start scanning SAST
-  inputs:
-    filePath: ' ~/.fortify/tools/sc-client/22.2.1/bin/scancentral'
-    arguments: '-url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log'
+#- task: Bash@3
+#  displayName: start scanning SAST
+#  inputs:
+#    filePath: ' ~/.fortify/tools/sc-client/22.2.1/bin/scancentral'
+#    arguments: '-url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log'
+
+#- task: Bash@3
+#  displayName: Get Progress scanning
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      # Write your commands here
+#      jobtoken=$(grep "received token" sast-$(versionid)-`date +%d-%m-%Y`.log | awk '(print $6)'
+#      echo $jobtoken
+      # get status token
+#      scancentral -url $(url_scancentral) status -token $jobtoken
 
 - task: Bash@3
-  displayName: Get Progress scanning
-  inputs:
+  displayName: check path varible
+  inputs:   
     targetType: 'inline'
     script: |
-      # Write your commands here
-      jobtoken=$(grep "received token" sast-$(versionid)-`date +%d-%m-%Y`.log | awk '(print $6)'
-      echo $jobtoken
-      # get status token
-      scancentral -url $(url_scancentral) status -token $jobtoken
+      echo $PATH
+      
+- task: CmdLine@2
+  inputs:
+    script: 'scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log'
