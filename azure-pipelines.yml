@@ -43,4 +43,4 @@ steps:
     script: |
       # Write your PowerShell commands here.
       echo $env:PATH
-      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log sast-$(versionid)-`date +%d-%m-%Y`.log
+      scancentral -url $url_scancentral start -bt msbuild --build-file IWA.NET.sln -upload -versionid $versionid -uptoken $uptoken
