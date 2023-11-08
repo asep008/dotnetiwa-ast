@@ -51,8 +51,9 @@ steps:
 
 - task: CmdLine@2
   displayName: hello world
-  inputs:
-    script: 'echo "gulam this $(uptoken)"'
+  inputs: 
+    script: 'echo "gulam this $(uptoken) and $(url_scancentral) and $(versionid) $(PATH)"'
+
 
 - task: CmdLine@2
   displayName: check securecentral command
