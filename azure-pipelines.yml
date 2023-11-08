@@ -59,6 +59,7 @@ steps:
   displayName: check securecentral command
   inputs:  
     script: |
-      echo $(PATH) 
+      echo $(PATH)
+      java --version
       fcli --help
       scancentral --help
