@@ -60,5 +60,5 @@ steps:
   inputs:  
     script: |
       echo $(PATH) 
-      fcli --help
-      scancentral --help
+      fcli.exe --help
+      scancentral.bat --help
