@@ -57,5 +57,7 @@ steps:
 
 - task: CmdLine@2
   displayName: check securecentral command
-  inputs:
-    script: 'scancentral --help'
+  inputs:  
+    script: |
+      echo $(PATH) 
+      'scancentral --help'
