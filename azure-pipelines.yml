@@ -40,10 +40,21 @@ steps:
 #      scancentral -url $(url_scancentral) status -token $jobtoken
 
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
+#- task: PowerShell@2
+#  inputs:
+#    targetType: 'inline'
+#    script: |
       # Write your PowerShell commands here.
-      echo $env:PATH
-      scancentral -url $env:url_scancentral start -bt msbuild --build-file IWA.NET.sln -upload -versionid $env:versionid -uptoken $env:uptoken
+#      echo $env:PATH
+#      scancentral -url $env:url_scancentral start -bt msbuild --build-file IWA.NET.sln -upload -versionid $env:versionid -uptoken $env:uptoken
+#appendCommitMessageToRunName:
+
+- task: CmdLine@2
+  displayName: hello world
+  inputs:
+    script: 'echo "gulam this $(uptoken)"'
+
+- task: CmdLine@2
+  displayName: check securecentral command
+  inputs:
+    script: 'scancentral --help'
