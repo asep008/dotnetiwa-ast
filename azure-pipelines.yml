@@ -6,6 +6,9 @@
 trigger:
 - main
 
+variables:
+- group: SAST-Variable
+
 pool:
   name: On-Prem-Hosted-Windows
   vmImage: WIN-DELINEAWS1
@@ -43,4 +46,4 @@ steps:
     script: |
       # Write your PowerShell commands here.
       echo $env:PATH
-      scancentral -url $env:url_scancentral start -bt msbuild --build-file IWA.NET.sln -upload -versionid $env:versionid -uptoken $env:uptoken
+      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken)
