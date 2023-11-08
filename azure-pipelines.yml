@@ -61,5 +61,5 @@ steps:
     script: |
       echo $(PATH)
       java --version
-      fcli --help
+      C:\Users\Administrator\Downloads\fcli-windows\fcli --help
       scancentral --help
