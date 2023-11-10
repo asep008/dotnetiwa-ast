@@ -54,4 +54,4 @@ steps:
   displayName: Submit Scanning Job
   inputs:  
     script: |
-      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $uptoken
+      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken)
