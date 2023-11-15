@@ -54,4 +54,18 @@ steps:
   displayName: Submit Scanning Job
   inputs:  
     script: |
-      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken)
+      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log output.log
+- task: PowerShell@2
+  displayName: check scanning status jobs
+  inputs:
+    targetType: 'inline'
+    script: |
+      # get token from scancentral 
+      $mytoken = Get-Content output.log | Select-String "received token" | ForEach-Object { $_.ToString().Split(' ')[6] }
+      Write-Host $mytoken
+      
+      # login scan central via fcli
+      fcli sc-sast session login --ssc-url $(url_scancentral) --ssc-ci-token $(ssc_ci_token) --client-auth-token $(client_auth_token)
+      
+      # check scanning status
+      fcli sc-sast scan wait-for -i 5s -t 24h $mytoken
