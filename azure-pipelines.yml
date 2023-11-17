@@ -57,7 +57,7 @@ steps:
     targetType: 'inline'
     script: |
       # start scanning
-      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload --application-version-id $(versionid) -uptoken $(uptoken) -log $(Build.Repository.LocalPath)/output.log
+      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload --application-version-id $(versionid) -uptoken $(uptoken) -log $(Build.Repository.LocalPath)\output.log
  
       # list directory
       dir 
