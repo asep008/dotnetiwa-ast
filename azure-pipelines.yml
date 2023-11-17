@@ -50,16 +50,15 @@ steps:
 #appendCommitMessageToRunName:
 
 
-- task: CmdLine@2
-  displayName: Submit Scanning Job
-  inputs:  
-    script: |
-      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload -versionid $(versionid) -uptoken $(uptoken) -log output.log
+
 - task: PowerShell@2
   displayName: check scanning status jobs
   inputs:
     targetType: 'inline'
     script: |
+      # start scanning
+      scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload --aplication-version-id $(versionid) -uptoken $(uptoken) -log output.log
+      
       # get token from scancentral 
       $mytoken = Get-Content output.log | Select-String "received token" | ForEach-Object { $_.ToString().Split(' ')[6] }
       Write-Host $mytoken
