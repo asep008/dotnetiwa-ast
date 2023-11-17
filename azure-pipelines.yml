@@ -58,8 +58,10 @@ steps:
     script: |
       # start scanning
       scancentral -url $(url_scancentral) start -bt msbuild --build-file IWA.NET.sln -upload --application-version-id $(versionid) -uptoken $(uptoken) -log output.log
-
-      # get token from scancentral 
+ 
+      # list directory
+      dir 
+      # get token from scancentral
       $mytoken = Get-Content output.log | Select-String "received token" | ForEach-Object { $_.ToString().Split(' ')[6] }
       Write-Host $mytoken
       
